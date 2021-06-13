@@ -11,3 +11,4 @@ This project is part of [The Odin Project](https://www.theodinproject.com/) Curr
 - Planning and pseudo code - before any line of code I drawn diagram and page design on the piece of the paper. All code was first written as pseudo code on the paper then as comments in js file.
 
 * CSS Grid - .
+* Dynamicaly filling the grid with JS
