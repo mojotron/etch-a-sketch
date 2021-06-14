@@ -1,11 +1,12 @@
 :root {
+  --block-color: rgb(241, 204, 204);
 }
 /* GENERAL */
 html {
   box-sizing: border-box;
   font-family: "Big Shoulders Stencil Display", monospace;
   font-size: 16px;
-  color: rgba(240, 224, 224);
+  color: var(--block-color);
 }
 body {
   height: 100vh;
@@ -25,7 +26,7 @@ body {
   text-align: center;
 }
 .info-section h1 {
-  font-size: 2rem;
+  font-size: 3rem;
   padding: 2rem 0 1.5rem;
 }
 /* GRID SECTION */
@@ -37,11 +38,12 @@ body {
   align-items: center;
 }
 .drawing-grid {
-  border: 1px solid rgba(240, 224, 224);
-  height: 85vmin;
-  width: 85vmin;
+  display: grid;
+  border: 1px solid var(--block-color);
+  height: 95vmin;
+  width: 95vmin;
 }
 /* grid block */
 .block {
-  background-color: rgba(240, 224, 224);
+  background-color: var(--block-color);
 }
