@@ -14,16 +14,27 @@ function fillGrid(gridElement, number) {
     const block = document.createElement("div");
     block.classList.add("block");
     gridElement.insertAdjacentElement("beforeend", block);
+    block.addEventListener("mouseover", function (e) {
+      if (active) e.target.style.backgroundColor = "black";
+    });
   }
 }
+//Activate/Dactivate drawing mode
+let active = false;
+drawingGrid.addEventListener("click", function (e) {
+  active = active ? false : true;
+  if (active && e.target.classList.contains("block")) {
+    e.target.style.backgroundColor = "black";
+  }
+});
 //Make grid
 function makeGrid(gridElement, size) {
   createGrid(gridElement, size);
   fillGrid(gridElement, size);
 }
 //TEST
-makeGrid(drawingGrid, 16);
-
+makeGrid(drawingGrid, 100);
+////////////////////////////////////////////////////
 //Info modal
 const btnOpenModal = document.querySelector(".btn-open-modal");
 const btnCloseModal = document.querySelector(".btn-close-modal");
