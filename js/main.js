@@ -23,3 +23,17 @@ function makeGrid(gridElement, size) {
 }
 //TEST
 makeGrid(drawingGrid, 16);
+
+//Info modal
+const btnOpenModal = document.querySelector(".btn-open-modal");
+const btnCloseModal = document.querySelector(".btn-close-modal");
+const infoModal = document.querySelector(".info-modal");
+function toggleHiddenClass(element) {
+  element.classList.toggle("hidden");
+}
+btnOpenModal.addEventListener("click", function () {
+  infoModal.classList.remove("hidden");
+});
+btnCloseModal.addEventListener("click", function () {
+  infoModal.classList.add("hidden");
+});

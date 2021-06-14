@@ -1,5 +1,7 @@
 :root {
   --block-color: rgb(241, 204, 204);
+  --block-black-pen: rgb(0, 0, 0);
+  --block-shade-start: rgb(0, 0, 0);
 }
 /* GENERAL */
 html {
@@ -17,6 +19,14 @@ body {
 .main-wrapper {
   height: 100%;
   display: flex;
+}
+/* Info modal */
+.hidden {
+  visibility: hidden;
+}
+.info-modal {
+  border: 1px solid var(--block-color);
+  width: 90%;
 }
 /* ASIDE */
 .info-section {
