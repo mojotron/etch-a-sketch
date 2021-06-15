@@ -13,3 +13,4 @@ This project is part of [The Odin Project](https://www.theodinproject.com/) Curr
 * CSS Grid - .
 * Dynamicaly filling the grid with JS
 * Insert Adjusted element
+* Global state variable

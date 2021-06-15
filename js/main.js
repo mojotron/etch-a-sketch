@@ -14,19 +14,20 @@ function fillGrid(gridElement, number) {
     const block = document.createElement("div");
     block.classList.add("block");
     gridElement.insertAdjacentElement("beforeend", block);
-    block.addEventListener("mouseover", function (e) {
+    block.addEventListener("mouseenter", function (e) {
       if (active) e.target.style.backgroundColor = "black";
     });
   }
 }
-//Activate/Dactivate drawing mode
+//Activate/Deactivate drawing mode
+const mainWrapper = document.querySelector(".main-wrapper");
 let active = false;
-drawingGrid.addEventListener("click", function (e) {
-  active = active ? false : true;
-  if (active && e.target.classList.contains("block")) {
-    e.target.style.backgroundColor = "black";
-  }
+drawingGrid.addEventListener("mousedown", function (e) {
+  e.preventDefault();
+  active = true;
+  e.target.style.backgroundColor = "black";
 });
+mainWrapper.addEventListener("mouseup", () => (active = false));
 //Make grid
 function makeGrid(gridElement, size) {
   createGrid(gridElement, size);
@@ -35,7 +36,8 @@ function makeGrid(gridElement, size) {
 //TEST
 makeGrid(drawingGrid, 100);
 ////////////////////////////////////////////////////
-//Info modal
+////////////////////////////////////////////////////
+//Info modal section =>
 const btnOpenModal = document.querySelector(".btn-open-modal");
 const btnCloseModal = document.querySelector(".btn-close-modal");
 const infoModal = document.querySelector(".info-modal");
