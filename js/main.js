@@ -1,13 +1,17 @@
 "use strict";
+//GLOBAL VARIABLES
+let drawingActive = false;
+let currentBlockColor;
 //DOM Selectors
 const drawingGrid = document.querySelector(".drawing-grid");
-//Create grid element by passing in container element and size of square grid
-//-simply add to grid element a grid template properties with size
+const mainWrapper = document.querySelector(".main-wrapper");
+const blackPen = document.querySelector(".btn-set-black-pan");
+const rainbowPen = document.querySelector(".btn-set-rainbow-pen");
+// CREATE GRID
 function createGrid(gridElement, size) {
   gridElement.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
   gridElement.style.gridTemplateRows = `repeat(${size}, 1fr)`;
 }
-//To fill grid with
 function fillGrid(gridElement, number) {
   const numOfElements = number ** 2;
   for (let i = 0; i < numOfElements; i++) {
@@ -15,29 +19,39 @@ function fillGrid(gridElement, number) {
     block.classList.add("block");
     gridElement.insertAdjacentElement("beforeend", block);
     block.addEventListener("mouseenter", function (e) {
-      if (active) e.target.style.backgroundColor = "black";
+      if (drawingActive) colorGridBlock(e.target, currentBlockColor());
     });
   }
 }
-//Activate/Deactivate drawing mode
-const mainWrapper = document.querySelector(".main-wrapper");
-let active = false;
-drawingGrid.addEventListener("mousedown", function (e) {
-  e.preventDefault();
-  active = true;
-  e.target.style.backgroundColor = "black";
-});
-mainWrapper.addEventListener("mouseup", () => (active = false));
-//Make grid
 function makeGrid(gridElement, size) {
   createGrid(gridElement, size);
   fillGrid(gridElement, size);
 }
-//TEST
-makeGrid(drawingGrid, 100);
-////////////////////////////////////////////////////
-////////////////////////////////////////////////////
-//Info modal section =>
+// ACTIVATE / DEACTIVATE DRAWING WITH MOUSE HOLD
+drawingGrid.addEventListener("mousedown", function (e) {
+  e.preventDefault();
+  drawingActive = true;
+  colorGridBlock(e.target, currentBlockColor());
+});
+mainWrapper.addEventListener("mouseup", () => (drawingActive = false));
+//GRID BLOCK BACKGROUND COLOR OPTIONS
+function colorGridBlock(block, color) {
+  block.style.backgroundColor = color;
+}
+function blackColor() {
+  return `rgb(70, 70, 70)`;
+}
+function randomNumber(number) {
+  return Math.floor(Math.random() * number);
+}
+function rainbowColor() {
+  return `rgb(${randomNumber(255)}, ${randomNumber(255)}, ${randomNumber(
+    255
+  )})`;
+}
+function addShadeToColor() {}
+
+//INFO MODAL LOGIC
 const btnOpenModal = document.querySelector(".btn-open-modal");
 const btnCloseModal = document.querySelector(".btn-close-modal");
 const infoModal = document.querySelector(".info-modal");
@@ -50,3 +64,10 @@ btnOpenModal.addEventListener("click", function () {
 btnCloseModal.addEventListener("click", function () {
   infoModal.classList.add("hidden");
 });
+////////////////////////////////////////////////////
+blackPen.addEventListener("click", () => (currentBlockColor = blackColor));
+rainbowPen.addEventListener("click", () => (currentBlockColor = rainbowColor));
+////////////////////////////////////////////////////
+//TEST
+makeGrid(drawingGrid, 100);
+currentBlockColor = rainbowColor;
