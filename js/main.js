@@ -7,6 +7,7 @@ const drawingGrid = document.querySelector(".drawing-grid");
 const mainWrapper = document.querySelector(".main-wrapper");
 const blackPen = document.querySelector(".btn-set-black-pan");
 const rainbowPen = document.querySelector(".btn-set-rainbow-pen");
+const eraserPen = document.querySelector(".btn-set-eraser-pen");
 // CREATE GRID
 function createGrid(gridElement, size) {
   gridElement.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
@@ -49,6 +50,9 @@ function rainbowColor() {
     255
   )})`;
 }
+function gridColor(color = "rgb(241, 204, 204)") {
+  return color;
+}
 function addShadeToColor() {}
 
 //INFO MODAL LOGIC
@@ -67,7 +71,8 @@ btnCloseModal.addEventListener("click", function () {
 ////////////////////////////////////////////////////
 blackPen.addEventListener("click", () => (currentBlockColor = blackColor));
 rainbowPen.addEventListener("click", () => (currentBlockColor = rainbowColor));
+eraserPen.addEventListener("click", () => (currentBlockColor = gridColor));
 ////////////////////////////////////////////////////
 //TEST
-makeGrid(drawingGrid, 100);
-currentBlockColor = rainbowColor;
+makeGrid(drawingGrid, 32);
+currentBlockColor = blackColor;
