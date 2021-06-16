@@ -61,16 +61,22 @@ function rainbowColor() {
 function gridColor(color = "rgb(241, 204, 204)") {
   return color;
 }
-function addShadeColor(block) {
-  if (block.style.backgroundColor === gridColor()) return `rgb(200, 200, 200)`;
-  const rgbValues = block.style.backgroundColor
+function getRgbValues(element) {
+  return element.style.backgroundColor
     .match(/rgb\((\d+),\s(\d+),\s(\d+)\)/)
     .slice(1)
     .map((value) => Number(value));
-
-  return `rgb(${rgbValues[0] - 10 > 0 ? rgbValues[0] - 10 : 0}, ${
-    rgbValues[1] - 10 > 0 ? rgbValues[1] - 10 : 0
-  }, ${rgbValues[2] - 10 > 0 ? rgbValues[2] - 10 : 0})`;
+}
+function subtractColorValue(value, amount) {
+  return value - amount > 0 ? value - amount : 0;
+}
+function addShadeColor(block) {
+  if (block.style.backgroundColor === gridColor()) return `rgb(200, 200, 200)`;
+  const [red, green, blue] = getRgbValues(block);
+  return `rgb(
+      ${subtractColorValue(red, 20)}, 
+      ${subtractColorValue(green, 20)},
+      ${subtractColorValue(blue, 20)})`;
 }
 
 //INFO MODAL LOGIC
