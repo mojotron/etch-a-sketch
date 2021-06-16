@@ -7,6 +7,7 @@ const drawingGrid = document.querySelector(".drawing-grid");
 const mainWrapper = document.querySelector(".main-wrapper");
 const blackPen = document.querySelector(".btn-set-black-pan");
 const rainbowPen = document.querySelector(".btn-set-rainbow-pen");
+const shadePen = document.querySelector(".btn-set-shade-pen");
 const eraserPen = document.querySelector(".btn-set-eraser-pen");
 // CREATE GRID
 function createGrid(gridElement, size) {
@@ -32,7 +33,7 @@ function makeGrid(gridElement, size) {
 drawingGrid.addEventListener("mousedown", function (e) {
   e.preventDefault();
   drawingActive = true;
-  colorGridBlock(e.target, currentBlockColor());
+  colorGridBlock(e.target, currentBlockColor);
 });
 mainWrapper.addEventListener("mouseup", () => (drawingActive = false));
 //GRID BLOCK BACKGROUND COLOR OPTIONS
@@ -53,7 +54,6 @@ function rainbowColor() {
 function gridColor(color = "rgb(241, 204, 204)") {
   return color;
 }
-function addShadeToColor() {}
 
 //INFO MODAL LOGIC
 const btnOpenModal = document.querySelector(".btn-open-modal");
@@ -71,6 +71,7 @@ btnCloseModal.addEventListener("click", function () {
 ////////////////////////////////////////////////////
 blackPen.addEventListener("click", () => (currentBlockColor = blackColor));
 rainbowPen.addEventListener("click", () => (currentBlockColor = rainbowColor));
+shadePen.addEventListener("click", () => (currentBlockColor = setColor));
 eraserPen.addEventListener("click", () => (currentBlockColor = gridColor));
 ////////////////////////////////////////////////////
 //TEST
