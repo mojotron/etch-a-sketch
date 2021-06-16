@@ -1,7 +1,7 @@
 "use strict";
 //GLOBAL VARIABLES
 let drawingActive = false;
-let currentBlockColor;
+let penActive = "blackPen";
 //DOM Selectors
 const drawingGrid = document.querySelector(".drawing-grid");
 const mainWrapper = document.querySelector(".main-wrapper");
@@ -19,9 +19,10 @@ function fillGrid(gridElement, number) {
   for (let i = 0; i < numOfElements; i++) {
     const block = document.createElement("div");
     block.classList.add("block");
+    block.style.backgroundColor = gridColor();
     gridElement.insertAdjacentElement("beforeend", block);
     block.addEventListener("mouseenter", function (e) {
-      if (drawingActive) colorGridBlock(e.target, currentBlockColor());
+      if (drawingActive) colorGridBlock(e.target);
     });
   }
 }
@@ -33,13 +34,19 @@ function makeGrid(gridElement, size) {
 drawingGrid.addEventListener("mousedown", function (e) {
   e.preventDefault();
   drawingActive = true;
-  colorGridBlock(e.target, currentBlockColor);
+  colorGridBlock(e.target);
 });
 mainWrapper.addEventListener("mouseup", () => (drawingActive = false));
 //GRID BLOCK BACKGROUND COLOR OPTIONS
-function colorGridBlock(block, color) {
-  block.style.backgroundColor = color;
+function colorGridBlock(block) {
+  if (penActive === "blackPen") block.style.backgroundColor = blackColor();
+  else if (penActive === "rainbowPen")
+    block.style.backgroundColor = rainbowColor();
+  else if (penActive === "eraserPen") block.style.backgroundColor = gridColor();
+  else if (penActive === "shadePen")
+    block.style.backgroundColor = addShadeColor(block);
 }
+
 function blackColor() {
   return `rgb(70, 70, 70)`;
 }
@@ -53,6 +60,17 @@ function rainbowColor() {
 }
 function gridColor(color = "rgb(241, 204, 204)") {
   return color;
+}
+function addShadeColor(block) {
+  if (block.style.backgroundColor === gridColor()) return `rgb(200, 200, 200)`;
+  const rgbValues = block.style.backgroundColor
+    .match(/rgb\((\d+),\s(\d+),\s(\d+)\)/)
+    .slice(1)
+    .map((value) => Number(value));
+
+  return `rgb(${rgbValues[0] - 10 > 0 ? rgbValues[0] - 10 : 0}, ${
+    rgbValues[1] - 10 > 0 ? rgbValues[1] - 10 : 0
+  }, ${rgbValues[2] - 10 > 0 ? rgbValues[2] - 10 : 0})`;
 }
 
 //INFO MODAL LOGIC
@@ -68,12 +86,10 @@ btnOpenModal.addEventListener("click", function () {
 btnCloseModal.addEventListener("click", function () {
   infoModal.classList.add("hidden");
 });
-////////////////////////////////////////////////////
-blackPen.addEventListener("click", () => (currentBlockColor = blackColor));
-rainbowPen.addEventListener("click", () => (currentBlockColor = rainbowColor));
-shadePen.addEventListener("click", () => (currentBlockColor = setColor));
-eraserPen.addEventListener("click", () => (currentBlockColor = gridColor));
-////////////////////////////////////////////////////
-//TEST
+// Buttons Event Handlers
+blackPen.addEventListener("click", () => (penActive = "blackPen"));
+rainbowPen.addEventListener("click", () => (penActive = "rainbowPen"));
+shadePen.addEventListener("click", () => (penActive = "shadePen"));
+eraserPen.addEventListener("click", () => (penActive = "eraserPen"));
+
 makeGrid(drawingGrid, 32);
-currentBlockColor = blackColor;
