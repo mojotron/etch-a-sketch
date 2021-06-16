@@ -52,6 +52,15 @@ body {
   background-color: var(--block-color);
   color: #895e63;
 }
+.dimension-option {
+  border: 1px solid var(--block-color);
+  padding: 0.2rem 0.4rem;
+  border-radius: 10px;
+}
+.dimension-active {
+  background-color: var(--block-color);
+  color: #895e63;
+}
 /* GRID SECTION */
 .grid-container {
   width: 80%;
