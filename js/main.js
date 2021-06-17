@@ -9,8 +9,11 @@ const blackPen = document.querySelector(".btn-set-black-pan");
 const rainbowPen = document.querySelector(".btn-set-rainbow-pen");
 const shadePen = document.querySelector(".btn-set-shade-pen");
 const eraserPen = document.querySelector(".btn-set-eraser-pen");
+const resetBtn = document.querySelector(".btn-reset-resize-grid");
+const dimensionOptions = document.querySelectorAll(".dimension-option");
 // CREATE GRID
 function createGrid(gridElement, size) {
+  gridElement.innerHTML = null;
   gridElement.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
   gridElement.style.gridTemplateRows = `repeat(${size}, 1fr)`;
 }
@@ -97,5 +100,17 @@ blackPen.addEventListener("click", () => (penActive = "blackPen"));
 rainbowPen.addEventListener("click", () => (penActive = "rainbowPen"));
 shadePen.addEventListener("click", () => (penActive = "shadePen"));
 eraserPen.addEventListener("click", () => (penActive = "eraserPen"));
-
+resetBtn.addEventListener("click", function () {
+  const gridSize = document.querySelector(".dimension-active").dataset.size;
+  makeGrid(drawingGrid, gridSize);
+});
+//Dimension options
+for (let option of dimensionOptions) {
+  option.addEventListener("click", function (e) {
+    const currentOption = e.target;
+    const activeOption = document.querySelector(".dimension-active");
+    activeOption.classList.remove("dimension-active");
+    currentOption.classList.add("dimension-active");
+  });
+}
 makeGrid(drawingGrid, 32);

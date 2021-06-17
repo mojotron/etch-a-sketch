@@ -52,7 +52,12 @@ body {
   background-color: var(--block-color);
   color: #895e63;
 }
+.dimension-container {
+  margin: 0.5rem auto;
+}
 .dimension-option {
+  position: relative;
+  top: 1rem;
   border: 1px solid var(--block-color);
   padding: 0.2rem 0.4rem;
   border-radius: 10px;
