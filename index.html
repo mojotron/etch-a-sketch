@@ -21,23 +21,6 @@
           <h1>Etch-A-Sketch</h1>
         </header>
         <div class="commands">
-          <div class="info-modal hidden">
-            <span class="btn-close-modal">X</span>
-            <h2>Welcome to Etch-A-Sketch!</h2>
-            <p>
-              Express your creativity, this is cross over between etch-a-sketch
-              toy and drawing pad. Pick up a pen and scribble on the grid. 
-            </p>
-            <p>
-              To reset grid select size of the grid and reset button. 
-              <ul>
-                <li>Tiny 16 x 16 grid</li>
-                <li>Small 32 x 32 grid</li>
-                <li>Medium 64 x 64 grid</li>
-                <li>Large 100 x 100 grid</li>
-              </ul>
-            </p>
-          </div>
           <div class="btns-container">
             <span class="btn btn-open-modal">Info</span>
             <span class="btn btn-set-color pen-active" data-color="blackPen"
@@ -53,10 +36,10 @@
             <span class="btn btn-reset-resize-grid">Reset</span>
             <div class="dimension-container">
               <h2>Grid dimension</h2>
-              <span class="dimension-option" data-size="16">tiny</span>
-              <span class="dimension-option dimension-active" data-size="32"
-                >small</span
+              <span class="dimension-option dimension-active" data-size="16"
+                >tiny</span
               >
+              <span class="dimension-option" data-size="32">small</span>
               <span class="dimension-option" data-size="64">medium</span>
               <span class="dimension-option" data-size="100">large</span>
             </div>
@@ -67,5 +50,22 @@
         <div class="drawing-grid"></div>
       </section>
     </div>
+
+    <div class="info-modal hidden">
+      <span class="btn-close-modal">X</span>
+      <h2>Welcome to Etch-A-Sketch!</h2>
+      <p>
+        Express your creativity, this is cross over between etch-a-sketch toy
+        and drawing pad. Pick up a pen and scribble on the grid.
+      </p>
+      <p>To reset grid select size of the grid and reset button. Grid sizes:</p>
+      <ul>
+        <li>Tiny 16 x 16 grid</li>
+        <li>Small 32 x 32 grid</li>
+        <li>Medium 64 x 64 grid</li>
+        <li>Large 100 x 100 grid</li>
+      </ul>
+    </div>
+    <div class="overlay hidden"></div>
   </body>
 </html>

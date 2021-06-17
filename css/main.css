@@ -1,5 +1,6 @@
 :root {
   --block-color: rgb(241, 204, 204);
+  --font-color: rgb(251, 234, 234);
   --block-black-pen: rgb(0, 0, 0);
   --block-shade-start: rgb(0, 0, 0);
 }
@@ -8,7 +9,7 @@ html {
   box-sizing: border-box;
   font-family: "Big Shoulders Stencil Display", monospace;
   font-size: 16px;
-  color: var(--block-color);
+  color: var(--font-color);
 }
 body {
   height: 100vh;
@@ -27,7 +28,7 @@ body {
 }
 .info-modal {
   position: absolute;
-  top: 30px;
+  top: 105px;
   box-sizing: border-box;
   border: 1px solid var(--block-color);
   width: 20%;
@@ -38,18 +39,34 @@ body {
   letter-spacing: 0.1rem;
 }
 .info-modal h2 {
-  margin: 0.4rem auto;
+  margin: 0.4rem 0;
+  text-align: center;
   font-size: 1.4rem;
+}
+.info-modal p {
+  padding: 10px 5px 3px;
+}
+.info-modal li {
+  padding-left: 10px;
 }
 .info-modal .btn-close-modal {
   position: absolute;
-  top: 0;
-  right: 10px;
+  top: 2px;
+  right: 2px;
   font-size: 1.3rem;
   font-weight: 600;
+  font-family: monospace;
 }
 .info-modal .btn-close-modal:hover {
-  color: #791e53;
+  color: #63668a;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 2;
 }
 /* ASIDE */
 .info-section {
@@ -61,6 +78,7 @@ body {
 .info-section h1 {
   font-size: 3rem;
   padding: 2rem 0 1.5rem;
+  text-shadow: 3px 3px #6c556a;
 }
 .btn {
   display: block;
@@ -71,10 +89,17 @@ body {
   letter-spacing: 0.1rem;
   font-weight: 600;
 }
-.btn:hover {
+.btn:hover,
+.dimension-option:hover {
   background-color: var(--block-color);
   color: #895e63;
 }
+.btn:active,
+.dimension-option:active {
+  background-color: #764248;
+  color: var(--font-color);
+}
+
 .btn-set-color,
 .btn-reset-resize-grid {
   border-top: none;
@@ -83,19 +108,22 @@ body {
   margin: 0.5rem auto;
 }
 .dimension-container h2 {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 }
 .dimension-option {
+  font-size: 1.1rem;
   position: relative;
   top: 1rem;
-  border: 1px solid var(--block-color);
+  border: 2px solid var(--block-color);
   padding: 0.2rem 0.4rem;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 .dimension-active,
-.pen-active {
-  background-color: var(--block-color);
-  color: #895e63;
+.pen-active,
+span.pen-active:hover,
+span.dimension-active:hover {
+  background-color: #6c556a;
+  color: var(--block-color);
 }
 /* GRID SECTION */
 .grid-container {
@@ -114,4 +142,7 @@ body {
 /* grid block */
 .block {
   background-color: var(--block-color);
+}
+
+@media (max-width: 786px) {
 }

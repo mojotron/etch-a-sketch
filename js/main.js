@@ -75,14 +75,19 @@ function addShadeColor(block) {
 const btnOpenModal = document.querySelector(".btn-open-modal");
 const btnCloseModal = document.querySelector(".btn-close-modal");
 const infoModal = document.querySelector(".info-modal");
-function toggleHiddenClass(element) {
-  element.classList.toggle("hidden");
-}
+const overlay = document.querySelector(".overlay");
+
 btnOpenModal.addEventListener("click", function () {
   infoModal.classList.remove("hidden");
+  overlay.classList.remove("hidden");
 });
 btnCloseModal.addEventListener("click", function () {
   infoModal.classList.add("hidden");
+  overlay.classList.add("hidden");
+});
+overlay.addEventListener("click", function () {
+  infoModal.classList.add("hidden");
+  overlay.classList.add("hidden");
 });
 //activate pan
 function activatePen(event) {
@@ -110,4 +115,4 @@ for (let option of dimensionOptions) {
     currentOption.classList.add("dimension-active");
   });
 }
-makeGrid(drawingGrid, 32);
+makeGrid(drawingGrid, 16);
