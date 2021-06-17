@@ -62,7 +62,8 @@ body {
   padding: 0.2rem 0.4rem;
   border-radius: 10px;
 }
-.dimension-active {
+.dimension-active,
+.pen-active {
   background-color: var(--block-color);
   color: #895e63;
 }

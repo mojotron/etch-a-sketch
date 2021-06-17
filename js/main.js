@@ -5,10 +5,6 @@ let penActive = "blackPen";
 //DOM Selectors
 const drawingGrid = document.querySelector(".drawing-grid");
 const mainWrapper = document.querySelector(".main-wrapper");
-const blackPen = document.querySelector(".btn-set-black-pan");
-const rainbowPen = document.querySelector(".btn-set-rainbow-pen");
-const shadePen = document.querySelector(".btn-set-shade-pen");
-const eraserPen = document.querySelector(".btn-set-eraser-pen");
 const resetBtn = document.querySelector(".btn-reset-resize-grid");
 const dimensionOptions = document.querySelectorAll(".dimension-option");
 // CREATE GRID
@@ -95,11 +91,21 @@ btnOpenModal.addEventListener("click", function () {
 btnCloseModal.addEventListener("click", function () {
   infoModal.classList.add("hidden");
 });
+//activate pan
+function activatePen(event) {
+  const currentPen = event;
+  const activePen = document.querySelector(".pen-active");
+  activePen.classList.remove("pen-active");
+  currentPen.classList.add("pen-active");
+  return event.dataset.color;
+}
 // Buttons Event Handlers
-blackPen.addEventListener("click", () => (penActive = "blackPen"));
-rainbowPen.addEventListener("click", () => (penActive = "rainbowPen"));
-shadePen.addEventListener("click", () => (penActive = "shadePen"));
-eraserPen.addEventListener("click", () => (penActive = "eraserPen"));
+const colorBtns = document.querySelectorAll(".btn-set-color");
+for (let pen of colorBtns) {
+  pen.addEventListener("click", function (e) {
+    penActive = activatePen(e.target);
+  });
+}
 resetBtn.addEventListener("click", function () {
   const gridSize = document.querySelector(".dimension-active").dataset.size;
   makeGrid(drawingGrid, gridSize);
