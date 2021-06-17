@@ -45,37 +45,30 @@ function colorGridBlock(block) {
   else if (penActive === "shadePen")
     block.style.backgroundColor = addShadeColor(block);
 }
+// Helper functions
+const randRGB = () => Math.floor(Math.random() * 256);
 
-function blackColor() {
-  return `rgb(70, 70, 70)`;
-}
-function randomNumber(number) {
-  return Math.floor(Math.random() * number);
-}
-function rainbowColor() {
-  return `rgb(${randomNumber(255)}, ${randomNumber(255)}, ${randomNumber(
-    255
-  )})`;
-}
-function gridColor(color = "rgb(241, 204, 204)") {
-  return color;
-}
 function getRgbValues(element) {
   return element.style.backgroundColor
     .match(/rgb\((\d+),\s(\d+),\s(\d+)\)/)
     .slice(1)
     .map((value) => Number(value));
 }
-function subtractColorValue(value, amount) {
-  return value - amount > 0 ? value - amount : 0;
-}
+
+const calcColorValue = (value, amount) =>
+  value - amount > 0 ? value - amount : 0;
+// Color functions
+const blackColor = () => `rgb(70, 70, 70)`;
+
+const rainbowColor = () => `rgb(${randRGB()}, ${randRGB()}, ${randRGB()})`;
+
+const gridColor = (color = "rgb(241, 204, 204)") => color;
+
 function addShadeColor(block) {
   if (block.style.backgroundColor === gridColor()) return `rgb(200, 200, 200)`;
   const [red, green, blue] = getRgbValues(block);
-  return `rgb(
-      ${subtractColorValue(red, 20)}, 
-      ${subtractColorValue(green, 20)},
-      ${subtractColorValue(blue, 20)})`;
+  return `rgb(${calcColorValue(red, 20)}, ${calcColorValue(green, 20)},
+      ${calcColorValue(blue, 20)})`;
 }
 
 //INFO MODAL LOGIC
@@ -102,9 +95,7 @@ function activatePen(event) {
 // Buttons Event Handlers
 const colorBtns = document.querySelectorAll(".btn-set-color");
 for (let pen of colorBtns) {
-  pen.addEventListener("click", function (e) {
-    penActive = activatePen(e.target);
-  });
+  pen.addEventListener("click", (e) => (penActive = activatePen(e.target)));
 }
 resetBtn.addEventListener("click", function () {
   const gridSize = document.querySelector(".dimension-active").dataset.size;
