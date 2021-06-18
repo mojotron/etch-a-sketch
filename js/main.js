@@ -2,9 +2,11 @@
 //GLOBAL VARIABLES
 let drawingActive = false;
 let penActive = "blackPen";
+let gridOnOff = false;
 //DOM Selectors
 const drawingGrid = document.querySelector(".drawing-grid");
 const mainWrapper = document.querySelector(".main-wrapper");
+const gridToggle = document.querySelector(".btn-toggle-grid");
 const resetBtn = document.querySelector(".btn-reset-resize-grid");
 const dimensionOptions = document.querySelectorAll(".dimension-option");
 // CREATE GRID
@@ -89,6 +91,21 @@ overlay.addEventListener("click", function () {
   infoModal.classList.add("hidden");
   overlay.classList.add("hidden");
 });
+//Grid toggle
+function switchGridOn() {
+  drawingGrid.style.gridGap = "1px";
+  gridToggle.textContent = "Grid on";
+  gridOnOff = true;
+}
+function switchGridOff() {
+  drawingGrid.style.gridGap = "0px";
+  gridToggle.textContent = "Grid off";
+  gridOnOff = false;
+}
+gridToggle.addEventListener("click", function () {
+  const dimension = document.querySelector(".dimension-active").dataset.size;
+  !gridOnOff && +dimension !== 100 ? switchGridOn() : switchGridOff();
+});
 //activate pan
 function activatePen(event) {
   const currentPen = event;
@@ -104,6 +121,7 @@ for (let pen of colorBtns) {
 }
 resetBtn.addEventListener("click", function () {
   const gridSize = document.querySelector(".dimension-active").dataset.size;
+  if (+gridSize === 100) switchGridOff();
   makeGrid(drawingGrid, gridSize);
 });
 //Dimension options

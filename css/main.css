@@ -104,7 +104,8 @@ body {
 }
 
 .btn-set-color,
-.btn-reset-resize-grid {
+.btn-reset-resize-grid,
+.btn-toggle-grid {
   border-top: none;
 }
 .dimension-container {
@@ -139,6 +140,7 @@ span.dimension-active:hover {
 }
 .drawing-grid {
   display: grid;
+  grid-gap: 0px;
   border: 1px solid var(--block-color);
   height: 95vmin;
   width: 95vmin;
@@ -174,7 +176,8 @@ span.dimension-active:hover {
     height: 100%;
   }
   .btn-set-color,
-  .btn-reset-resize-grid {
+  .btn-reset-resize-grid,
+  .btn-toggle-grid {
     border: 2px solid var(--block-color);
   }
   .drawing-grid {
