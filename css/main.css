@@ -102,11 +102,14 @@ body {
   background-color: #764248;
   color: var(--font-color);
 }
-
 .btn-set-color,
 .btn-reset-resize-grid,
 .btn-toggle-grid {
   border-top: none;
+}
+input[type="color"] {
+  border: none;
+  width: 4rem;
 }
 .dimension-container {
   margin: 0.5rem auto;
@@ -163,7 +166,6 @@ span.dimension-active:hover {
   .info-section {
     flex-direction: row;
     width: 100%;
-    height: 30%;
   }
   .btn {
     display: inline-block;
@@ -172,6 +174,7 @@ span.dimension-active:hover {
     font-size: 1.1rem;
   }
   .grid-container {
+    margin-top: 30px;
     width: 100%;
     height: 100%;
   }
@@ -188,6 +191,13 @@ span.dimension-active:hover {
     top: 0;
     right: 0;
     width: 100%;
+  }
+  input[type="color"] {
+    border: none;
+    width: 3rem;
+  }
+  .dimension-option {
+    top: 0.5rem;
   }
 }
 

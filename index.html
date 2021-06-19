@@ -22,7 +22,7 @@
         </header>
         <div class="commands">
           <div class="btns-container">
-            <span class="btn btn-open-modal">Info</span>
+            <span class="btn btn-open-modal">Instructions</span>
             <span class="btn btn-set-color pen-active" data-color="blackPen"
               >Black Pan</span
             >
@@ -33,6 +33,13 @@
             <span class="btn btn-set-color" data-color="shadePen"
               >Shade Pan</span
             >
+            <span
+              class="btn btn-set-color btn-color-picker"
+              data-color="customPen"
+              >Custom pen
+              <input type="color" class="color-picker" />
+            </span>
+
             <span class="btn btn-toggle-grid">Grind off</span>
             <span class="btn btn-reset-resize-grid">Reset</span>
           </div>
@@ -71,6 +78,7 @@
         You can toggle on/off grid, accenpt for large size, we dont want to
         crash your browser!
       </p>
+      <p>To pick custom color. Frist pick color then activate Custom pen.</p>
     </div>
     <div class="overlay hidden"></div>
   </body>

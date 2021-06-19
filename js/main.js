@@ -9,6 +9,8 @@ const mainWrapper = document.querySelector(".main-wrapper");
 const gridToggle = document.querySelector(".btn-toggle-grid");
 const resetBtn = document.querySelector(".btn-reset-resize-grid");
 const dimensionOptions = document.querySelectorAll(".dimension-option");
+const colorPicker = document.querySelector(".color-picker");
+
 // CREATE GRID
 function createGrid(gridElement, size) {
   gridElement.innerHTML = null;
@@ -46,6 +48,8 @@ function colorGridBlock(block) {
   else if (penActive === "eraserPen") block.style.backgroundColor = gridColor();
   else if (penActive === "shadePen")
     block.style.backgroundColor = addShadeColor(block);
+  else if (penActive === "customPen")
+    block.style.backgroundColor = customColor();
 }
 // Helper functions
 const randRGB = () => Math.floor(Math.random() * 256);
@@ -65,6 +69,10 @@ const blackColor = () => `rgb(70, 70, 70)`;
 const rainbowColor = () => `rgb(${randRGB()}, ${randRGB()}, ${randRGB()})`;
 
 const gridColor = (color = "rgb(241, 204, 204)") => color;
+
+function customColor() {
+  return colorPicker.value;
+}
 
 function addShadeColor(block) {
   if (block.style.backgroundColor === gridColor()) return `rgb(200, 200, 200)`;
@@ -95,11 +103,13 @@ overlay.addEventListener("click", function () {
 function switchGridOn() {
   drawingGrid.style.gridGap = "1px";
   gridToggle.textContent = "Grid on";
+  gridToggle.classList.add("pen-active");
   gridOnOff = true;
 }
 function switchGridOff() {
   drawingGrid.style.gridGap = "0px";
   gridToggle.textContent = "Grid off";
+  gridToggle.classList.remove("pen-active");
   gridOnOff = false;
 }
 gridToggle.addEventListener("click", function () {
