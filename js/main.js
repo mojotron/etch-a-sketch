@@ -10,8 +10,15 @@ const gridToggle = document.querySelector(".btn-toggle-grid");
 const resetBtn = document.querySelector(".btn-reset-resize-grid");
 const dimensionOptions = document.querySelectorAll(".dimension-option");
 const colorPicker = document.querySelector(".color-picker");
+// Info modal Selectors
+const btnOpenModal = document.querySelector(".btn-open-modal");
+const btnCloseModal = document.querySelector(".btn-close-modal");
+const infoModal = document.querySelector(".info-modal");
+const overlay = document.querySelector(".overlay");
+// Pen buttons Selectors
+const colorBtns = document.querySelectorAll(".btn-set-color");
 
-// CREATE GRID
+// CREATE DRAWING GRID
 function createGrid(gridElement, size) {
   gridElement.innerHTML = null;
   gridElement.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
@@ -33,14 +40,16 @@ function makeGrid(gridElement, size) {
   createGrid(gridElement, size);
   fillGrid(gridElement, size);
 }
-// ACTIVATE / DEACTIVATE DRAWING WITH MOUSE HOLD
+
+// ACTIVATE / DEACTIVATE DRAWING ON MOUSEDOWN
 drawingGrid.addEventListener("mousedown", function (e) {
   e.preventDefault();
   drawingActive = true;
   colorGridBlock(e.target);
 });
 mainWrapper.addEventListener("mouseup", () => (drawingActive = false));
-//GRID BLOCK BACKGROUND COLOR OPTIONS
+
+//COLORING GRID BLOCKS DEPENDING ON WHAT PEN IS ACTIVE
 function colorGridBlock(block) {
   if (penActive === "blackPen") block.style.backgroundColor = blackColor();
   else if (penActive === "rainbowPen")
@@ -51,7 +60,8 @@ function colorGridBlock(block) {
   else if (penActive === "customPen")
     block.style.backgroundColor = customColor();
 }
-// Helper functions
+
+// HELPER FUNCTIONS
 const randRGB = () => Math.floor(Math.random() * 256);
 
 function getRgbValues(element) {
@@ -61,18 +71,23 @@ function getRgbValues(element) {
     .map((value) => Number(value));
 }
 
+function hexColorToRgb(hex) {
+  return `rgb(${parseInt("0x" + hex.slice(1, 3))}, 
+              ${parseInt("0x" + hex.slice(3, 5))}, 
+              ${parseInt("0x" + hex.slice(5))})`;
+}
+
 const calcColorValue = (value, amount) =>
   value - amount > 0 ? value - amount : 0;
-// Color functions
+
+// PEN COLOR VALUES
 const blackColor = () => `rgb(70, 70, 70)`;
 
 const rainbowColor = () => `rgb(${randRGB()}, ${randRGB()}, ${randRGB()})`;
 
 const gridColor = (color = "rgb(241, 204, 204)") => color;
-
-function customColor() {
-  return colorPicker.value;
-}
+//Color input type returns hex values, but shade pen use rgb value
+const customColor = () => hexColorToRgb(colorPicker.value);
 
 function addShadeColor(block) {
   if (block.style.backgroundColor === gridColor()) return `rgb(200, 200, 200)`;
@@ -82,24 +97,18 @@ function addShadeColor(block) {
 }
 
 //INFO MODAL LOGIC
-const btnOpenModal = document.querySelector(".btn-open-modal");
-const btnCloseModal = document.querySelector(".btn-close-modal");
-const infoModal = document.querySelector(".info-modal");
-const overlay = document.querySelector(".overlay");
-
+function closeModal() {
+  infoModal.classList.add("hidden");
+  overlay.classList.add("hidden");
+}
 btnOpenModal.addEventListener("click", function () {
   infoModal.classList.remove("hidden");
   overlay.classList.remove("hidden");
 });
-btnCloseModal.addEventListener("click", function () {
-  infoModal.classList.add("hidden");
-  overlay.classList.add("hidden");
-});
-overlay.addEventListener("click", function () {
-  infoModal.classList.add("hidden");
-  overlay.classList.add("hidden");
-});
-//Grid toggle
+btnCloseModal.addEventListener("click", closeModal);
+overlay.addEventListener("click", closeModal);
+
+//GRID TOGGLE LOGIC
 function switchGridOn() {
   drawingGrid.style.gridGap = "1px";
   gridToggle.textContent = "Grid on";
@@ -116,7 +125,8 @@ gridToggle.addEventListener("click", function () {
   const dimension = document.querySelector(".dimension-active").dataset.size;
   !gridOnOff && +dimension !== 100 ? switchGridOn() : switchGridOff();
 });
-//activate pan
+
+//ACTIVE PEN ON CLICK AND GET PEN DATASET VALUE
 function activatePen(event) {
   const currentPen = event;
   const activePen = document.querySelector(".pen-active");
@@ -125,16 +135,16 @@ function activatePen(event) {
   return event.dataset.color;
 }
 // Buttons Event Handlers
-const colorBtns = document.querySelectorAll(".btn-set-color");
 for (let pen of colorBtns) {
   pen.addEventListener("click", (e) => (penActive = activatePen(e.target)));
 }
+//RESET / RESIZE GRID
 resetBtn.addEventListener("click", function () {
   const gridSize = document.querySelector(".dimension-active").dataset.size;
-  if (+gridSize === 100) switchGridOff();
+  if (+gridSize === 100) switchGridOff(); //Browser sometimes crashes with grid
   makeGrid(drawingGrid, gridSize);
 });
-//Dimension options
+//GRID DIMENSION OPTIONS
 for (let option of dimensionOptions) {
   option.addEventListener("click", function (e) {
     const currentOption = e.target;
@@ -143,4 +153,5 @@ for (let option of dimensionOptions) {
     currentOption.classList.add("dimension-active");
   });
 }
+// Draw grid for first visit
 makeGrid(drawingGrid, 16);
